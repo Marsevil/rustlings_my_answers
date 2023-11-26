@@ -2,18 +2,55 @@
 //
 // Execute `rustlings hint if3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+#[derive(PartialEq, Eq, Debug, Clone)]
+#[repr(usize)]
+enum AnimalIdentifier {
+    UNKNOWN = 0,
+    CRAB = 1,
+    GOPHER = 2,
+    SNAKE = 3,
+}
+
+impl Default for AnimalIdentifier {
+    fn default() -> Self {
+        Self::UNKNOWN
+    }
+}
+
+impl From<usize> for AnimalIdentifier {
+    fn from(value: usize) -> Self {
+        match value {
+            1 => AnimalIdentifier::CRAB,
+            2 => AnimalIdentifier::GOPHER,
+            3 => AnimalIdentifier::SNAKE,
+            _ => AnimalIdentifier::UNKNOWN,
+        }
+    }
+}
+
+impl From<AnimalIdentifier> for usize {
+    fn from(value: AnimalIdentifier) -> Self {
+        match value {
+            AnimalIdentifier::UNKNOWN => 0,
+            AnimalIdentifier::CRAB => 1,
+            AnimalIdentifier::GOPHER => 2,
+            AnimalIdentifier::SNAKE => 3,
+        }
+    }
+}
 
 pub fn animal_habitat(animal: &str) -> &'static str {
     let identifier = if animal == "crab" {
-        1
+        AnimalIdentifier::CRAB
     } else if animal == "gopher" {
-        2.0
+        AnimalIdentifier::GOPHER
     } else if animal == "snake" {
-        3
+        AnimalIdentifier::SNAKE
     } else {
-        "Unknown"
+        AnimalIdentifier::default()
     };
+
+    let identifier: isize = <AnimalIdentifier as Into<usize>>::into(identifier) as isize;
 
     // DO NOT CHANGE THIS STATEMENT BELOW
     let habitat = if identifier == 1 {
