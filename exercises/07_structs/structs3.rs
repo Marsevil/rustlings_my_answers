@@ -7,8 +7,6 @@
 // Execute `rustlings hint structs3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[derive(Debug)]
 struct Package {
     sender_country: String,
@@ -17,8 +15,10 @@ struct Package {
 }
 
 impl Package {
+    const MIN_WEIGHT: u32 = 10;
+
     fn new(sender_country: String, recipient_country: String, weight_in_grams: u32) -> Package {
-        if weight_in_grams < 10 {
+        if weight_in_grams < Self::MIN_WEIGHT {
             // This is not how you should handle errors in Rust,
             // but we will learn about error handling later.
             panic!("Can not ship a package with weight below 10 grams.")
@@ -31,12 +31,12 @@ impl Package {
         }
     }
 
-    fn is_international(&self) -> ??? {
-        // Something goes here...
+    fn is_international(&self) -> bool {
+        self.sender_country != self.recipient_country
     }
 
-    fn get_fees(&self, cents_per_gram: u32) -> ??? {
-        // Something goes here...
+    fn get_fees(&self, cents_per_gram: u32) -> u32 {
+        cents_per_gram * self.weight_in_grams
     }
 }
 
