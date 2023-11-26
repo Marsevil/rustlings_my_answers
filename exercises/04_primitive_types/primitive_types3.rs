@@ -5,11 +5,16 @@
 // Execute `rustlings hint primitive_types3` or use the `hint` watch subcommand
 // for a hint.
 
-// I AM NOT DONE
-
 fn main() {
-    let a = ???
-
+    const SIZE: usize = 200;
+    let a = {
+        let mut a = Vec::with_capacity(SIZE);
+        for i in 0..SIZE {
+            a.push(i);
+        }
+        a
+    };
+    
     if a.len() >= 100 {
         println!("Wow, that's a big array!");
     } else {
